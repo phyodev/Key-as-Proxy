@@ -10,7 +10,7 @@ dependencies = [
     "shadowsocks @ https://github.com/shadowsocks/shadowsocks/archive/master.zip",
     "pproxy (>=2.7.9,<3.0.0)",
     "pystray (>=0.19.5,<0.20.0)",
-    "concurrent-log-handler (>=0.9.29,<0.10.0)"
+    "python-dotenv (>=1.2.2,<2.0.0)"
 ]
 
 [tool.poetry]

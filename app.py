@@ -4,10 +4,16 @@ import sys
 import logging
 import threading
 import subprocess
+from dotenv import load_dotenv
 import time
 import signal
 from pystray import Icon, MenuItem as Item, Menu
 from PIL import Image
+
+# Ensure the logs directory exists
+os.makedirs('logs', exist_ok=True)
+
+load_dotenv()
 
 logging.basicConfig(
     filename='logs/kap.log',
@@ -100,10 +106,11 @@ class ShadowsocksClient:
             logger.info("Not running")
 
     def exit_app(self, icon=None):
-        self.stop_helper()
+        self.stop_helper(icon)
         if icon:
             icon.stop()
-        sys.exit(0)
+        # Ensure the script ends
+        os._exit(0)
 
 def main():
     client = ShadowsocksClient()
@@ -114,6 +121,15 @@ def main():
         Item('Exit', client.exit_app)
     )
     icon = Icon("kap_client", image, "kapHelper", menu)
+
+    # Signal handler for graceful shutdown
+    def signal_handler(sig, frame):
+        print("\nInterrupt received, shutting down...")
+        client.exit_app(icon)
+
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
+
     icon.run()
 
 if __name__ == "__main__":
