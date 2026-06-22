@@ -1,0 +1,21 @@
+[project]
+name = "kap"
+version = "1.0.0"
+description = ""
+authors = [
+    {name = "Phyo Pyae Sone"}
+]
+requires-python = ">=3.10"
+dependencies = [
+    "shadowsocks @ https://github.com/shadowsocks/shadowsocks/archive/master.zip",
+    "pproxy (>=2.7.9,<3.0.0)",
+    "pystray (>=0.19.5,<0.20.0)",
+    "concurrent-log-handler (>=0.9.29,<0.10.0)"
+]
+
+[tool.poetry]
+package-mode = false
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+
